@@ -18,4 +18,5 @@ variable "environment" {
 variable "key_name" {
   description = "EC2 key pair name"
   type        = string
+  default     = "cloud-operations-portal-dev-key"
 }
