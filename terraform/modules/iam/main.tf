@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
 
     principals {
       type = "Federated"
+
       identifiers = [
         aws_iam_openid_connect_provider.github.arn
       ]
@@ -28,12 +29,16 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
+
+      values = [
+        "sts.amazonaws.com"
+      ]
     }
 
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
+
       values = [
         "repo:${var.github_org}/${var.github_repo}:ref:refs/heads/main",
         "repo:${var.github_org}/${var.github_repo}:pull_request"
@@ -54,12 +59,24 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
     actions = [
       "s3:GetObject",
       "s3:PutObject",
-      "s3:ListBucket"
+      "s3:DeleteObject"
     ]
 
     resources = [
-      "arn:aws:s3:::${var.terraform_state_bucket}",
       "arn:aws:s3:::${var.terraform_state_bucket}/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetBucketLocation"
+    ]
+
+    resources = [
+      "arn:aws:s3:::${var.terraform_state_bucket}"
     ]
   }
 
@@ -85,7 +102,6 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
       "ec2:Describe*",
       "s3:ListAllMyBuckets",
       "s3:GetBucket*",
-      "s3:ListBucket",
       "iam:Get*",
       "iam:List*"
     ]

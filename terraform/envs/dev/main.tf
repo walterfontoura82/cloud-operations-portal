@@ -24,11 +24,11 @@ module "ec2" {
 module "iam" {
   source = "../../modules/iam"
 
-  github_org              = "walterfontoura82"
-  github_repo             = "cloud-operations-portal"
-  aws_region              = var.aws_region
-  terraform_state_bucket  = "cloud-operations-portal-tfstate-67bbcf73"
-  terraform_lock_table    = "cloud-operations-portal-tf-locks"
+  github_org             = "walterfontoura82"
+  github_repo            = "cloud-operations-portal"
+  aws_region             = var.aws_region
+  terraform_state_bucket = "cloud-operations-portal-tfstate-67bbcf73"
+  terraform_lock_table   = "cloud-operations-portal-tf-locks"
 }
 
 
