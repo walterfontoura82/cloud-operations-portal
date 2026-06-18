@@ -21,7 +21,15 @@ module "ec2" {
   subnet_id    = module.vpc.public_subnet_id
   key_name     = var.key_name
 }
+module "iam" {
+  source = "../../modules/iam"
 
+  github_org              = "walterfontoura82"
+  github_repo             = "cloud-operations-portal"
+  aws_region              = var.aws_region
+  terraform_state_bucket  = "cloud-operations-portal-tfstate-67bbcf73"
+  terraform_lock_table    = "cloud-operations-portal-tf-locks"
+}
 
 
 
