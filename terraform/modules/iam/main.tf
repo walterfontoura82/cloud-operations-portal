@@ -108,6 +108,39 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
 
     resources = ["*"]
   }
+
+    statement {
+    effect = "Allow"
+
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:CompleteLayerUpload",
+      "ecr:InitiateLayerUpload",
+      "ecr:PutImage",
+      "ecr:UploadLayerPart",
+      "ecr:DescribeRepositories"
+    ]
+
+    resources = ["*"]
+  }
+
+    statement {
+    effect = "Allow"
+
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:CompleteLayerUpload",
+      "ecr:InitiateLayerUpload",
+      "ecr:PutImage",
+      "ecr:UploadLayerPart",
+      "ecr:DescribeRepositories",
+      "ecr:BatchGetImage"
+    ]
+
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_policy" "github_actions_terraform_plan" {
