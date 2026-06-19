@@ -30,7 +30,11 @@ module "iam" {
   terraform_state_bucket = "cloud-operations-portal-tfstate-8706a97d"
   terraform_lock_table   = "cloud-operations-portal-tf-locks"
 }
+module "ecr" {
+  source = "../../modules/ecr"
 
+  repository_name = "cloud-operations-portal"
+}
 
 
 

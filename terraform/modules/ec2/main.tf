@@ -104,76 +104,76 @@ resource "aws_instance" "lab" {
   usermod -aG docker ubuntu
   mkdir -p /home/ubuntu/monitoring
 
-    cat <<'COMPOSE' > /home/ubuntu/monitoring/docker-compose.yml
-    services:
+  cat <<'COMPOSE' > /home/ubuntu/monitoring/docker-compose.yml
+  services:
     grafana:
-        image: grafana/grafana-oss:latest
-        container_name: grafana
-        restart: unless-stopped
-        ports:
+      image: grafana/grafana-oss:latest
+      container_name: grafana
+      restart: unless-stopped
+      ports:
         - "3000:3000"
-        volumes:
+      volumes:
         - grafana-data:/var/lib/grafana
 
     zabbix-postgres:
-        image: postgres:16-alpine
-        container_name: zabbix-postgres
-        restart: unless-stopped
-        environment:
+      image: postgres:16-alpine
+      container_name: zabbix-postgres
+      restart: unless-stopped
+      environment:
         POSTGRES_USER: zabbix
         POSTGRES_PASSWORD: zabbixpass
         POSTGRES_DB: zabbix
-        volumes:
+      volumes:
         - zabbix-postgres-data:/var/lib/postgresql/data
 
     zabbix-server:
-        image: zabbix/zabbix-server-pgsql:alpine-latest
-        container_name: zabbix-server
-        restart: unless-stopped
-        environment:
+      image: zabbix/zabbix-server-pgsql:alpine-latest
+      container_name: zabbix-server
+      restart: unless-stopped
+      environment:
         DB_SERVER_HOST: zabbix-postgres
         POSTGRES_USER: zabbix
         POSTGRES_PASSWORD: zabbixpass
         POSTGRES_DB: zabbix
-        depends_on:
+      depends_on:
         - zabbix-postgres
-        ports:
+      ports:
         - "10051:10051"
 
     zabbix-web:
-        image: zabbix/zabbix-web-nginx-pgsql:alpine-latest
-        container_name: zabbix-web
-        restart: unless-stopped
-        environment:
+      image: zabbix/zabbix-web-nginx-pgsql:alpine-latest
+      container_name: zabbix-web
+      restart: unless-stopped
+      environment:
         ZBX_SERVER_HOST: zabbix-server
         DB_SERVER_HOST: zabbix-postgres
         POSTGRES_USER: zabbix
         POSTGRES_PASSWORD: zabbixpass
         POSTGRES_DB: zabbix
         PHP_TZ: America/Argentina/Cordoba
-        depends_on:
+      depends_on:
         - zabbix-server
         - zabbix-postgres
-        ports:
+      ports:
         - "8080:8080"
 
     zabbix-agent:
-        image: zabbix/zabbix-agent2:alpine-latest
-        container_name: zabbix-agent
-        restart: unless-stopped
-        environment:
+      image: zabbix/zabbix-agent2:alpine-latest
+      container_name: zabbix-agent
+      restart: unless-stopped
+      environment:
         ZBX_HOSTNAME: docker-monitoring-lab
         ZBX_SERVER_HOST: zabbix-server
-        depends_on:
+      depends_on:
         - zabbix-server
-        privileged: true
-        volumes:
+      privileged: true
+      volumes:
         - /var/run/docker.sock:/var/run/docker.sock
 
-    volumes:
+  volumes:
     grafana-data:
     zabbix-postgres-data:
-    COMPOSE
+  COMPOSE
 
     chown -R ubuntu:ubuntu /home/ubuntu/monitoring
 

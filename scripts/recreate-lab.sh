@@ -62,13 +62,21 @@ terraform {
 }
 EOF
 
-echo "==> Deploying dev infrastructure..."
+echo "==> Recreating dev infrastructure..."
 cd "$DEV_DIR"
 rm -rf .terraform
 
-terraform init -reconfigure
+terraform init -input=false -reconfigure
 
+echo "==> Destroying the current dev infrastructure..."
+terraform destroy \
+  -input=false \
+  -var="key_name=$KEY_NAME" \
+  -auto-approve
+
+echo "==> Creating the dev infrastructure..."
 terraform apply \
+  -input=false \
   -var="key_name=$KEY_NAME" \
   -auto-approve
 
