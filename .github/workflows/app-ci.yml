@@ -1,0 +1,34 @@
+name: App CI
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r app/requirements.txt
+
+      - name: Lint
+        run: PYTHONPATH=. ruff check app
+
+      - name: Tests
+        run: PYTHONPATH=. pytest app/tests
