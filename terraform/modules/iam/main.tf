@@ -109,23 +109,7 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
     resources = ["*"]
   }
 
-    statement {
-    effect = "Allow"
-
-    actions = [
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:CompleteLayerUpload",
-      "ecr:InitiateLayerUpload",
-      "ecr:PutImage",
-      "ecr:UploadLayerPart",
-      "ecr:DescribeRepositories"
-    ]
-
-    resources = ["*"]
-  }
-
-    statement {
+  statement {
     effect = "Allow"
 
     actions = [
@@ -136,6 +120,7 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
       "ecr:PutImage",
       "ecr:UploadLayerPart",
       "ecr:DescribeRepositories",
+      "ecr:ListTagsForResource",
       "ecr:BatchGetImage"
     ]
 
