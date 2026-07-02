@@ -68,9 +68,12 @@ rm -rf .terraform
 
 terraform init -input=false -reconfigure
 
-echo "==> Destroying the current dev infrastructure..."
+echo "==> Destroying the current lab resources..."
 terraform destroy \
   -input=false \
+  -target=module.ec2 \
+  -target=module.vpc \
+  -target=module.s3 \
   -var="key_name=$KEY_NAME" \
   -auto-approve
 
