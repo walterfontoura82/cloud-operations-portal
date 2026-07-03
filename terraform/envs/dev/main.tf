@@ -36,7 +36,18 @@ module "ecr" {
   repository_name = "cloud-operations-portal"
 }
 
+module "eks" {
+  source = "../../modules/eks"
 
+  cluster_name = "cloud-operations-portal-dev-eks"
+  #subnet_ids   = [module.vpc.public_subnet_id]
+  subnet_ids = module.vpc.public_subnet_ids
+
+  node_instance_types = ["t3.medium"]
+  desired_size        = 1
+  min_size            = 1
+  max_size            = 2
+}
 
 # data "aws_ami" "ubuntu" {
 #   most_recent = true

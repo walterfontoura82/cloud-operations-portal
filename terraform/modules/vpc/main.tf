@@ -10,18 +10,36 @@ resource "aws_vpc" "main" {
   }
 }
 
+# resource "aws_subnet" "public" {
+#   vpc_id                  = aws_vpc.main.id
+#   cidr_block              = var.public_subnet_cidr
+#   map_public_ip_on_launch = true
+
+#   tags = {
+#     Name        = "${var.project_name}-${var.environment}-public-subnet"
+#     Environment = var.environment
+#     Project     = var.project_name
+#   }
+# }
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 resource "aws_subnet" "public" {
+  count = 2
+
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_cidr
+  cidr_block              = cidrsubnet(var.vpc_cidr, 8, count.index + 1)
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
   tags = {
-    Name        = "${var.project_name}-${var.environment}-public-subnet"
+    Name        = "${var.project_name}-${var.environment}-public-subnet-${count.index + 1}"
     Environment = var.environment
     Project     = var.project_name
   }
 }
-
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
@@ -48,7 +66,13 @@ resource "aws_route" "internet_access" {
   gateway_id             = aws_internet_gateway.main.id
 }
 
+# resource "aws_route_table_association" "public" {
+#   subnet_id      = aws_subnet.public.id
+#   route_table_id = aws_route_table.public.id
+# }
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.public.id
+  count = 2
+
+  subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
