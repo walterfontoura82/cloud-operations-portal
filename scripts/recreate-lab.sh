@@ -56,11 +56,16 @@ terraform {
     bucket         = "$STATE_BUCKET"
     key            = "envs/dev/terraform.tfstate"
     region         = "$AWS_REGION"
-    dynamodb_table = "$LOCK_TABLE"
+    use_lockfile = true
     encrypt        = true
   }
 }
 EOF
+
+echo "==> Updating IAM backend bucket..."
+sed -i -E \
+  "s|(terraform_state_bucket[[:space:]]*=[[:space:]]*)\"[^\"]+\"|\\1\"$STATE_BUCKET\"|" \
+  "$DEV_DIR/main.tf"
 
 echo "==> Recreating dev infrastructure..."
 cd "$DEV_DIR"

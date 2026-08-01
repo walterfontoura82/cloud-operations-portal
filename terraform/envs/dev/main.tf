@@ -27,7 +27,7 @@ module "iam" {
   github_org             = "walterfontoura82"
   github_repo            = "cloud-operations-portal"
   aws_region             = var.aws_region
-  terraform_state_bucket = "cloud-operations-portal-tfstate-8706a97d"
+  terraform_state_bucket = "cloud-operations-portal-tfstate-e2aed0e7"
   terraform_lock_table   = "cloud-operations-portal-tf-locks"
 }
 module "ecr" {
