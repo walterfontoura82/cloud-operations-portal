@@ -107,6 +107,8 @@ data "aws_iam_policy_document" "terraform_plan_permissions" {
 
     actions = [
       "ec2:Describe*",
+      "eks:Describe*",
+      "eks:List*",
       "s3:ListAllMyBuckets",
       "s3:GetBucket*",
       "iam:Get*",

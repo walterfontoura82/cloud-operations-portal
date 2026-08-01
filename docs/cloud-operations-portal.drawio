@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" modified="2026-08-01T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="cloud-operations-portal" name="Arquitectura actual">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Cloud Operations Portal — arquitectura construida hasta aquí" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="260" y="20" width="1080" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Verde: validado/funcionando  ·  Amarillo: definido pero incompleto/no confirmado desplegado  ·  Gris: próximo paso" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#5F6B7A;" vertex="1" parent="1">
+          <mxGeometry x="290" y="60" width="1020" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="githubBox" value="GitHub" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F4F6;strokeColor=#6B7280;strokeWidth=2;fontStyle=1;fontSize=16;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="260" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="repo" value="Repositorio&#xa;FastAPI + Dockerfile&#xa;Terraform modular" style="shape=mxgraph.basic.rect;rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#16A34A;strokeWidth=2;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="75" y="175" width="190" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="ci" value="App CI&#xa;Ruff + Pytest" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="75" y="275" width="190" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="dockerwf" value="Docker Build &amp; Push&#xa;GitHub Actions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="75" y="355" width="190" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="tfplan" value="Terraform Plan&#xa;GitHub Actions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="75" y="435" width="190" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="awsBox" value="AWS — cuenta sandbox / entorno dev" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E7;strokeColor=#FF9900;strokeWidth=3;fontStyle=1;fontSize=18;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="350" y="120" width="1200" height="760" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="iam" value="IAM + OIDC&#xa;Role para GitHub Actions" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.identity_and_access_management;whiteSpace=wrap;html=1;fillColor=#DD344C;strokeColor=#B91C1C;fontColor=#232F3E;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=75;" vertex="1" parent="1">
+          <mxGeometry x="390" y="180" width="150" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="ecr" value="Amazon ECR&#xa;Imagen :latest publicada" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_container_registry;whiteSpace=wrap;html=1;fillColor=#ED7100;strokeColor=#16A34A;strokeWidth=3;fontColor=#232F3E;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=75;" vertex="1" parent="1">
+          <mxGeometry x="650" y="180" width="150" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="stateS3" value="Amazon S3&#xa;Terraform state versionado" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_storage_service;whiteSpace=wrap;html=1;fillColor=#3F8624;strokeColor=#16A34A;strokeWidth=3;fontColor=#232F3E;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=75;" vertex="1" parent="1">
+          <mxGeometry x="910" y="180" width="165" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="ddb" value="DynamoDB&#xa;Lock de Terraform" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;whiteSpace=wrap;html=1;fillColor=#3B48CC;strokeColor=#16A34A;strokeWidth=3;fontColor=#232F3E;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=75;" vertex="1" parent="1">
+          <mxGeometry x="1165" y="180" width="150" height="115" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="vpc" value="Amazon VPC 10.10.0.0/16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F4FF;strokeColor=#147EBA;strokeWidth=3;fontStyle=1;fontSize=16;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="390" y="350" width="760" height="450" as="geometry"/>
+        </mxCell>
+        <mxCell id="igw" value="Internet Gateway" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.internet_gateway;whiteSpace=wrap;html=1;fillColor=#8C4FFF;strokeColor=#16A34A;strokeWidth=3;fontSize=12;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=65;" vertex="1" parent="1">
+          <mxGeometry x="420" y="410" width="125" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="subnet1" value="Subnet pública — AZ 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#16A34A;strokeWidth=2;fontStyle=1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="580" y="405" width="250" height="320" as="geometry"/>
+        </mxCell>
+        <mxCell id="ec2" value="Amazon EC2&#xa;Ubuntu + Docker&#xa;Grafana :3000&#xa;Zabbix :8080 / :10051" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;whiteSpace=wrap;html=1;fillColor=#ED7100;strokeColor=#16A34A;strokeWidth=3;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=85;" vertex="1" parent="1">
+          <mxGeometry x="625" y="480" width="160" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="subnet2" value="Subnet pública — AZ 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontStyle=1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="860" y="405" width="250" height="320" as="geometry"/>
+        </mxCell>
+        <mxCell id="eks" value="Amazon EKS&#xa;Control plane + Managed Node Group&#xa;&#xa;Terraform escrito; despliegue no confirmado" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;whiteSpace=wrap;html=1;fillColor=#ED7100;strokeColor=#D97706;strokeWidth=3;dashed=1;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=90;" vertex="1" parent="1">
+          <mxGeometry x="900" y="485" width="170" height="165" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="labS3" value="S3 bucket del laboratorio" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.simple_storage_service;whiteSpace=wrap;html=1;fillColor=#3F8624;strokeColor=#16A34A;strokeWidth=3;fontSize=12;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=70;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="390" width="150" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pending" value="Pendiente para completar Kubernetes / entrega de la app" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F4F6;strokeColor=#6B7280;strokeWidth=2;fontStyle=1;fontSize=15;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="555" width="315" height="245" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1" value="1. Manifiestos Deployment + Service" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="610" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p2" value="2. Ingress / Load Balancer" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="645" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p3" value="3. Pipeline de deploy a EKS" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="680" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p4" value="4. Confirmar apply/estado real del clúster" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="715" width="275" height="25" as="geometry"/></mxCell>
+        <mxCell id="p5" value="5. Alternativa previa: deploy automático a EC2" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="750" width="280" height="25" as="geometry"/></mxCell>
+
+        <mxCell id="edgeRepoCI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;" edge="1" parent="1" source="repo" target="ci"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeRepoDocker" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;" edge="1" parent="1" source="repo" target="dockerwf"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeRepoTf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;" edge="1" parent="1" source="repo" target="tfplan"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeOidc" value="OIDC / AssumeRole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#DD344C;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="dockerwf" target="iam"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeEcr" value="push image" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="dockerwf" target="ecr"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeTfIam" value="OIDC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#DD344C;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="tfplan" target="iam"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeState" value="backend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="tfplan" target="stateS3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeLock" value="locking" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="tfplan" target="ddb"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgeInternet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#147EBA;strokeWidth=2;" edge="1" parent="1" source="igw" target="ec2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgePullEc2" value="deploy/pull aún pendiente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#6B7280;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="ecr" target="ec2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgePullEks" value="pull futuro" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#D97706;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="ecr" target="eks"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
