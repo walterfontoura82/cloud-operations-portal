@@ -31,3 +31,8 @@ variable "max_size" {
   type        = number
   default     = 2
 }
+
+variable "github_actions_role_arn" {
+  description = "IAM role authorized to deploy workloads to EKS"
+  type        = string
+}

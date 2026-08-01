@@ -41,7 +41,8 @@ module "eks" {
 
   cluster_name = "cloud-operations-portal-dev-eks"
   #subnet_ids   = [module.vpc.public_subnet_id]
-  subnet_ids = module.vpc.public_subnet_ids
+  subnet_ids              = module.vpc.public_subnet_ids
+  github_actions_role_arn = module.iam.github_actions_role_arn
 
   node_instance_types = ["t3.medium"]
   desired_size        = 1

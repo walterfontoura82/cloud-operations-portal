@@ -1,0 +1,104 @@
+name: Deploy to EKS
+
+on:
+  workflow_run:
+    workflows:
+      - Docker Build and Push
+    types:
+      - completed
+
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: ECR image tag to deploy
+        required: true
+        default: latest
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  EKS_CLUSTER: cloud-operations-portal-dev-eks
+  ECR_REPOSITORY: cloud-operations-portal
+  K8S_NAMESPACE: cloud-operations-portal
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::852100867941:role/cloud-operations-portal-github-actions-terraform-role
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Select image tag
+        env:
+          WORKFLOW_IMAGE_TAG: ${{ github.event.workflow_run.head_sha }}
+          MANUAL_IMAGE_TAG: ${{ inputs.image_tag }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "IMAGE_TAG=$WORKFLOW_IMAGE_TAG" >> "$GITHUB_ENV"
+          else
+            echo "IMAGE_TAG=$MANUAL_IMAGE_TAG" >> "$GITHUB_ENV"
+          fi
+
+      - name: Configure kubectl
+        run: |
+          aws eks update-kubeconfig \
+            --region "$AWS_REGION" \
+            --name "$EKS_CLUSTER"
+
+      - name: Render Kubernetes manifest
+        run: |
+          ECR_IMAGE="$(aws ecr describe-repositories \
+            --region "$AWS_REGION" \
+            --repository-names "$ECR_REPOSITORY" \
+            --query 'repositories[0].repositoryUri' \
+            --output text)"
+
+          sed \
+            "s|image: .*cloud-operations-portal:.*|image: $ECR_IMAGE:$IMAGE_TAG|" \
+            k8s/app.yaml > /tmp/app.yaml
+
+          grep "image:" /tmp/app.yaml
+
+      - name: Deploy
+        run: |
+          kubectl apply -f /tmp/app.yaml
+
+          kubectl rollout status \
+            deployment/cloud-operations-portal \
+            --namespace "$K8S_NAMESPACE" \
+            --timeout=5m
+
+      - name: Verify health
+        run: |
+          LOAD_BALANCER="$(kubectl get service cloud-operations-portal \
+            --namespace "$K8S_NAMESPACE" \
+            --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+
+          for attempt in {1..18}; do
+            if curl --fail --silent --show-error \
+              "http://$LOAD_BALANCER/health"; then
+              exit 0
+            fi
+
+            echo "Waiting for application health ($attempt/18)..."
+            sleep 10
+          done
+
+          exit 1
+
+
