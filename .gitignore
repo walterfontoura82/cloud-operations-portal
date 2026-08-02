@@ -23,3 +23,6 @@ venv/
 # Logs
 *.log
 *.pem
+
+# Personal project journal
+paso_paso.md

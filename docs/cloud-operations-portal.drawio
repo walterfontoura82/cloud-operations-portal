@@ -8,7 +8,7 @@
         <mxCell id="title" value="Cloud Operations Portal — arquitectura construida hasta aquí" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
           <mxGeometry x="260" y="20" width="1080" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="subtitle" value="Verde: validado/funcionando  ·  Amarillo: definido pero incompleto/no confirmado desplegado  ·  Gris: próximo paso" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#5F6B7A;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Arquitectura validada de punta a punta · Terraform + CI/CD + ECR + EC2 + monitoreo + EKS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#5F6B7A;" vertex="1" parent="1">
           <mxGeometry x="290" y="60" width="1020" height="30" as="geometry"/>
         </mxCell>
 
@@ -60,7 +60,7 @@
         <mxCell id="subnet2" value="Subnet pública — AZ 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontStyle=1;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
           <mxGeometry x="860" y="405" width="250" height="320" as="geometry"/>
         </mxCell>
-        <mxCell id="eks" value="Amazon EKS&#xa;Control plane + Managed Node Group&#xa;&#xa;Terraform escrito; despliegue no confirmado" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;whiteSpace=wrap;html=1;fillColor=#ED7100;strokeColor=#D97706;strokeWidth=3;dashed=1;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=90;" vertex="1" parent="1">
+        <mxCell id="eks" value="Amazon EKS&#xa;Control plane + Managed Node Group&#xa;&#xa;2 pods FastAPI · probes OK" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;whiteSpace=wrap;html=1;fillColor=#ED7100;strokeColor=#16A34A;strokeWidth=3;fontSize=13;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=90;" vertex="1" parent="1">
           <mxGeometry x="900" y="485" width="170" height="165" as="geometry"/>
         </mxCell>
 
@@ -68,14 +68,14 @@
           <mxGeometry x="1220" y="390" width="150" height="110" as="geometry"/>
         </mxCell>
 
-        <mxCell id="pending" value="Pendiente para completar Kubernetes / entrega de la app" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3F4F6;strokeColor=#6B7280;strokeWidth=2;fontStyle=1;fontSize=15;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+        <mxCell id="pending" value="Entrega Kubernetes completada" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontStyle=1;fontSize=15;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
           <mxGeometry x="1180" y="555" width="315" height="245" as="geometry"/>
         </mxCell>
-        <mxCell id="p1" value="1. Manifiestos Deployment + Service" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="610" width="260" height="25" as="geometry"/></mxCell>
-        <mxCell id="p2" value="2. Ingress / Load Balancer" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="645" width="260" height="25" as="geometry"/></mxCell>
-        <mxCell id="p3" value="3. Pipeline de deploy a EKS" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="680" width="260" height="25" as="geometry"/></mxCell>
-        <mxCell id="p4" value="4. Confirmar apply/estado real del clúster" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="715" width="275" height="25" as="geometry"/></mxCell>
-        <mxCell id="p5" value="5. Alternativa previa: deploy automático a EC2" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;" vertex="1" parent="1"><mxGeometry x="1205" y="750" width="280" height="25" as="geometry"/></mxCell>
+        <mxCell id="p1" value="✓ Deployment + Service declarativos" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#166534;" vertex="1" parent="1"><mxGeometry x="1205" y="610" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p2" value="✓ AWS Load Balancer público" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#166534;" vertex="1" parent="1"><mxGeometry x="1205" y="645" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p3" value="✓ Deploy automático desde GitHub" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#166534;" vertex="1" parent="1"><mxGeometry x="1205" y="680" width="260" height="25" as="geometry"/></mxCell>
+        <mxCell id="p4" value="✓ Imagen inmutable etiquetada por SHA" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#166534;" vertex="1" parent="1"><mxGeometry x="1205" y="715" width="275" height="25" as="geometry"/></mxCell>
+        <mxCell id="p5" value="✓ Rolling update + health check" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=13;fontColor=#166534;" vertex="1" parent="1"><mxGeometry x="1205" y="750" width="280" height="25" as="geometry"/></mxCell>
 
         <mxCell id="edgeRepoCI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;" edge="1" parent="1" source="repo" target="ci"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="edgeRepoDocker" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;" edge="1" parent="1" source="repo" target="dockerwf"><mxGeometry relative="1" as="geometry"/></mxCell>
@@ -86,8 +86,8 @@
         <mxCell id="edgeState" value="backend" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="tfplan" target="stateS3"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="edgeLock" value="locking" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="tfplan" target="ddb"><mxGeometry relative="1" as="geometry"/></mxCell>
         <mxCell id="edgeInternet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#147EBA;strokeWidth=2;" edge="1" parent="1" source="igw" target="ec2"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="edgePullEc2" value="deploy/pull aún pendiente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#6B7280;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="ecr" target="ec2"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="edgePullEks" value="pull futuro" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#D97706;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="ecr" target="eks"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgePullEc2" value="EC2 dedicado a monitoreo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#6B7280;strokeWidth=1;dashed=1;fontSize=11;" edge="1" parent="1" source="ecr" target="ec2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="edgePullEks" value="pull de imagen por SHA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;strokeColor=#16A34A;strokeWidth=3;fontSize=11;" edge="1" parent="1" source="ecr" target="eks"><mxGeometry relative="1" as="geometry"/></mxCell>
       </root>
     </mxGraphModel>
   </diagram>
